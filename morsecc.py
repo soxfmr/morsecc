@@ -22,18 +22,9 @@ def measure(binary):
     block = ''
     blockCurrentMode = '1'
 
-    entityMeasureList = []
-    spaceMeasureList = []
-
     for char in dumps:
         if blockCurrentMode != char:
-            measurement = len(block)
             mcAudio.addblock(block)
-
-            if blockCurrentMode == '1':
-                entityMeasureList.append(measurement)
-            else:
-                spaceMeasureList.append(measurement)
 
             block = ''
             # 切换区块模式
@@ -43,7 +34,7 @@ def measure(binary):
 
     # 追加最后一个未切换状态的区块
     mcAudio.addblock(block)
-    mcAudio.measureDuration(entityMeasureList, spaceMeasureList)
+    mcAudio.measureDuration()
 
     return mcAudio
 
