@@ -1,7 +1,6 @@
 # -*- coding:  utf-8 -*-
 import wave
 import sys
-import numpy
 from core.GlobalConfig import GlobalConfig
 from core.MorseCodeAudio import MorseCodeAudio
 from core.Translator import Translator as MorseCodeTranslator
@@ -15,7 +14,7 @@ def translate(mcAudio):
 def measure(binary):
     mcAudio = MorseCodeAudio()
 
-    dumps = ''.join(str(byte) for byte in binary.tolist())
+    dumps = ''.join(str(byte) for byte in binary)
     # 清空前后空白区域
     dumps = dumps.strip('0')
 
@@ -69,7 +68,7 @@ def main():
         frames = handle.getnframes()
         data = handle.readframes(frames)
         # 转换为数值数组
-        data = numpy.fromstring(data, dtype=numpy.byte)
+        data = bytearray(data)
         # 二值化
         binary = binarize(data, frames, config)
         # 测量宽度
